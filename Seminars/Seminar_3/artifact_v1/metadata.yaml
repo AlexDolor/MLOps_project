@@ -1,0 +1,8 @@
+model_name: MnistNet
+version: 1.0
+opset: 13
+precision: fp32
+optimization: eliminate_deadend, fuse_add_bias_into_conv, fuse_bn_into_convuse_bn_into_conv
+runtime: onnxruntime 1.23.2
+latency_ms: 1.335
+accuracy_drop: 0.0

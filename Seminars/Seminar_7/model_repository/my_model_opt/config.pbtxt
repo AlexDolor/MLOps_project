@@ -1,0 +1,23 @@
+name: "my_model_opt"
+platform: "onnxruntime_onnx"
+max_batch_size: 8
+
+input [
+  {
+    name: "input"
+    data_type: TYPE_FP32
+    dims: [1, 28, 28] 
+  }
+]
+
+output [
+  {
+    name: "output"
+    data_type: TYPE_FP32           
+    dims: [10]         
+  }
+]
+
+dynamic_batching {
+  max_queue_delay_microseconds: 100   
+}

@@ -1,0 +1,4 @@
+numpy==2.2.6
+fastapi==0.120.2
+uvicorn==0.38.0
+onnxruntime==1.23.2

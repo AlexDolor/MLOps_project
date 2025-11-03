@@ -1,0 +1,11 @@
+docker exec -it pipeline-preprocess-1 bash
+
+
+python
+
+import requests
+print(requests.get("http://triton:8000/v2/health/ready").text)
+
+
+
+docker compose logs triton

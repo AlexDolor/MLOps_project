@@ -1,0 +1,34 @@
+---теперь 3 ступенчатая архитектура
+
+docker build -t preprocess-service ./preprocess
+docker run -p 5001:5000 preprocess-service
+
+
+docker build -t model-service ./model
+docker run -p 5002:5000 model-service
+
+docker build -t postprocess-service ./postprocess
+docker run -p 5003:5000 postprocess-service
+
+
+docker compose up --build
+
+http://localhost:5001/docs	
+
+---запрос в preprocess (не работает, всё в питоне теперь)
+$uri = "http://localhost:5000/preprocess"
+$form = @{ "image" = Get-Item "image.png" }
+Invoke-WebRequest -Uri $uri -Method POST -Form $form
+
+dd-Type -AssemblyName System.Net.Http
+$client = New-Object System.Net.Http.HttpClient
+$uri = "http://localhost:5001/preprocess"
+
+$content = [System.Net.Http.MultipartFormDataContent]::new()
+$file = [System.IO.File]::ReadAllBytes("test.jpg")
+$fileContent = [System.Net.Http.ByteArrayContent]::new($file)
+$fileContent.Headers.ContentType = 'image/png'
+$content.Add($fileContent, "image", "image.png")
+
+$response = $client.PostAsync($uri, $content).Result
+$response.Content.ReadAsStringAsync().Result

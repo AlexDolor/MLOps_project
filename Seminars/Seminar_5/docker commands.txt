@@ -1,0 +1,19 @@
+cd Seminars\Seminar_5\my_ml_app
+
+docker rm ml_app_container
+
+docker build -t my_ml_app:latest .
+
+docker run -d --name ml_app_container -p 5000:5000 my_ml_app:latest
+docker run -d --name ml_app_secure -p 5000:5000 my_ml_app:latest
+
+curl -X POST -H "Content-Type: application/json" -d '{"numbers": [1, 2, 3, 4.5]}' http://localhost:5000/sum
+
+##отправляем запрос сервису
+$headers = @{ "Content-Type" = "application/json" }
+$body = '{ "numbers": [1, 2, 3, 4, 5, -10] }'
+Invoke-WebRequest -Uri "http://localhost:5000/sum" -Method POST -Headers $headers -Body $body
+
+
+docker exec -it ml_app_container sh
+whoami

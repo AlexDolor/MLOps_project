@@ -1,0 +1,25 @@
+name: "my_model_torch"
+backend: "pytorch"
+max_batch_size: 8
+
+input [
+  {
+    name: "input"
+    data_type: TYPE_FP32
+    dims: [1, 28, 28] 
+  }
+]
+
+output [
+  {
+    name: "output"
+    data_type: TYPE_FP32           
+    dims: [10]         
+  }
+]
+
+dynamic_batching {
+  max_queue_delay_microseconds: 100   
+}
+
+default_model_filename: "MnistNet_quant_scripted.pt"

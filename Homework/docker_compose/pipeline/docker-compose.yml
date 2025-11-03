@@ -1,0 +1,39 @@
+version: "3.9"
+services:
+  preprocess:
+    build: ./preprocess
+    ports: ["5001:5000"]
+    depends_on: ["triton"]
+    networks: [ml_net]
+  
+  postprocess:
+    build: ./postprocess
+    ports: ["5002:5000"]
+    depends_on: ["triton"]
+    networks: [ml_net]
+  
+  triton:
+    image: nvcr.io/nvidia/tritonserver:23.02-py3
+    command: tritonserver --model-repository=/models
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+    volumes:
+      - D:\Alex\GitHub\MLOps_project\Homework\triton\repo:/models
+    networks: [ml_net]
+
+networks:
+  ml_net:
+    driver: bridge 
+  # model:
+  #   build: ./model
+  #   ports: ["5002:5000"]
+  #   networks: [ml_net]
+
+  # postprocess:
+  #   build: ./postprocess
+  #   ports: ["5003:5000"]
+  #   depends_on: ["preprocess"]
+  #   networks: [ml_net]
+

@@ -1,0 +1,15 @@
+docker run --gpus=all --rm -p8000:8000 -p8001:8001 -p8002:8002 \
+-v ~/model_repository:/models \
+nvcr.io/nvidia/tritonserver:23.02-py3 tritonserver --model-repository=/models
+
+
+docker run --gpus=all --rm -p8000:8000 -p8001:8001 -p8002:8002 \
+-v D:\Alex\GitHub\MLOps_project\Seminars\Seminar_7\model_repository:/models \
+nvcr.io/nvidia/tritonserver:23.02-py3 tritonserver --model-repository=/models
+
+docker run --gpus=all --rm -p8000:8000 -p8001:8001 -p8002:8002 \
+-v "D:/Alex/GitHub/MLOps_project/Seminars/Seminar_7/model_repository:/models" \
+nvcr.io/nvidia/tritonserver:23.02-py3 tritonserver --model-repository=/models
+
+---Работает (в одну строку должно быть) и без '--gpus=all'
+docker run --rm -p 8000:8000 -p 8001:8001 -p 8002:8002 -v "D:/Alex/GitHub/MLOps_project/Seminars/Seminar_7/model_repository:/models" nvcr.io/nvidia/tritonserver:23.02-py3 tritonserver --model-repository=/models
