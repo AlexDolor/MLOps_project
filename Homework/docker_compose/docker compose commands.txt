@@ -6,6 +6,21 @@ python
 import requests
 print(requests.get("http://triton:8000/v2/health/ready").text)
 
-
-
 docker compose logs triton
+
+cat /etc/hosts
+
+docker network inspect ml_net
+
+docker network ls
+
+
+NETWORK ID     NAME                 DRIVER    SCOPE
+b77f791cd00b   bridge               bridge    local
+4dcf63479fc4   host                 host      local
+7231582946a3   ml_pipeline_ml_net   bridge    local
+9955d39af180   none                 null      local
+edd229a5b392   pipeline_default     bridge    local  pipeline-triton-1
+e8189a8f6a11   pipeline_ml_net      bridge    local  pipeline-preprocess-1
+
+docker network inspect e8189a8f6a11
